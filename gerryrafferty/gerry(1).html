@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fragmented Interlude</title>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="icon" type="image/png" href="../interlude-favicon.png">
+    <meta property="og:title" content="Fragmented Interlude" />
+    <meta property="og:description" content="Memory and music." />
+    <meta property="og:image" content="interlude-favicon.png" />
+    <meta property="og:url" content="https://emilyho-eho.github.io/nonlinear_space--project-1-/" />
+    <meta name="twitter:card" content="summary_large_image" />
+</head>
+<body>
+<div class="transition" id="transition-overlay">
+    <h3>"it's been you"</h3>
+    <br><br><br>
+    <p class="transition-sub">( TAP ANYWHERE TO CONTINUE )</p>
+</div>
+
+<div class="content" style="display: block;"> 
+    <video class="video" autoplay loop muted>
+        <source src="gerry(visual).mp4" type="video/mp4">
+    </video>
+    <div class="vignette"></div>
+    <div id="ui-layer" style="opacity: 0;">
+        <div class="sticky-ellipse"></div>
+        <a href="../index.html" class="home"><h1>FRAGMENTED</h1><h2>interlude</h2></a>
+        <div class="songinfo">
+            <img src="gerryrafferty.jpeg" alt="album cover">
+            <p style="color: black;">right down the line</p>
+            <p style="color: black;">Gerry Rafferty</p>
+        </div>
+        <div class="external-links">
+            <a href="../the1975/the1975(1).html" onclick="saveHistory('It\'s been you')" style="color: black;"><h3 style="text-shadow: 0 0 10px white, 0 0 25px white, 0 0 50px white, 0 0 100px white;">> "It's been you"</h3><br><p style="color: rgba(0, 0, 0, 0.7);">(PREV.)</p></a>
+            <a href="../chainsmokers/chainsmokers(2).html" onclick="saveHistory('Everything I could never say before')" style="color: black;"><h3 style="text-shadow: 0 0 10px white, 0 0 25px white, 0 0 50px white, 0 0 100px white;">> "Everything I</h3><h3 style="text-shadow: 0 0 10px white, 0 0 25px white, 0 0 50px white, 0 0 100px white;">could never say"</h3><h3 style="text-shadow: 0 0 10px white, 0 0 25px white, 0 0 50px white, 0 0 100px white;">before</h3></a>
+        </div>
+    </div>
+</div>
+
+<audio id="gerryrafferty" loop preload="auto">
+    <source src="gerryrafferty.mp3" type="audio/mp3">
+</audio>
+
+<div class="volume-wrapper">
+    <div class="volume-glow"></div>
+    <button id="volume-btn" onclick="toggleVolume()">
+        <img id="volume-icon" src="../whitevolume(on).png" width="30px">
+    </button>
+</div>
+
+<div class="about-wrapper">
+    <div class="about-glow"></div>
+    <button id="about-btn" onclick="toggleAbout()">
+        <img src="../whitehelp.png" width="30px">
+    </button>
+</div>
+
+<div id="about-panel">
+    <h1>About</h1>
+    <br>
+    <p>Fragmented Interlude explores the relationship between music and memory through a series of songs paired with distorted video imagery and lyric fragments. The visuals are sourced from personal videos but are intentionally obscured, allowing them to act as open-ended prompts that viewers can project their own memories onto.</p>
+    <br>
+    <p>The lyrics function as navigational links, guiding viewers between related songs through shared words or themes and forming a non-linear web of interconnected music and memory.</p>
+</div>
+
+<div id="history-box">
+    <div class="history-header">
+        <p class="history-title">path taken</p>
+        <button onclick="resetHistory()" class="reset-btn">reset</button>
+    </div>
+    <div id="history-list"></div>
+</div>
+
+<script>
+    document.getElementById('transition-overlay').addEventListener('click', function() {
+        this.style.transition = "opacity 1s ease";
+        this.style.opacity = "0";
+        const ui = document.getElementById('ui-layer');
+        ui.style.transition = "opacity 1.5s ease";
+        ui.style.opacity = "1";
+        ui.style.pointerEvents = "auto";
+        const audio = document.getElementById('gerryrafferty');
+        audio.muted = false;
+        audio.play();
+        setTimeout(() => { this.style.display = 'none'; }, 1000);
+    });
+
+    function toggleVolume() {
+        const audio = document.getElementById('gerryrafferty');
+        const icon = document.getElementById('volume-icon');
+        if (audio.muted) { audio.muted = false; icon.src = '../whitevolume(on).png'; }
+        else { audio.muted = true; icon.src = '../whitevolume(off).png'; }
+    }
+
+    function toggleAbout() {
+        const panel = document.getElementById('about-panel');
+        panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function saveHistory(lyric) {
+        const history = JSON.parse(localStorage.getItem('lyricHistory') || '[]');
+        history.push(lyric);
+        localStorage.setItem('lyricHistory', JSON.stringify(history));
+    }
+
+    function loadHistory() {
+        const history = JSON.parse(localStorage.getItem('lyricHistory') || '[]');
+        const list = document.getElementById('history-list');
+        list.innerHTML = '';
+        history.forEach(item => {
+            const p = document.createElement('p');
+            p.textContent = '> ' + item;
+            list.appendChild(p);
+        });
+    }
+
+    loadHistory();
+    function resetHistory() {
+    localStorage.removeItem('lyricHistory');
+    loadHistory();
+}
+</script>
+<style>@keyframes fadein { 0% { opacity: 0; } 100% { opacity: 1; } }</style>
+</body>
+</html>

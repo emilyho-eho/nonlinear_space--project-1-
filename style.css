@@ -1,0 +1,394 @@
+@import url('https://fonts.googleapis.com/css2?family=Xanh+Mono:ital@0;1&display=swap');
+
+/* zero-ing out styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Xanh Mono', monospace;
+    letter-spacing: -0.04em;
+    font-weight: 400;
+}
+
+.home, .home * {
+    color: white;
+    text-decoration: none;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    overflow: hidden;
+}
+
+body {
+    animation: fadein 1s ease forwards;
+}
+
+@keyframes fadein {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+p {
+    font-size: 15px;
+}
+h1 {
+    font-size: 45px;
+}
+h2 {
+    font-size: 43px;
+}
+h3 {
+    font-size: 20px;
+}
+
+/* ================================
+   INDEX PAGE LAYOUT
+================================ */
+
+.intro-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100%;
+    gap: 40px;
+}
+
+.opening {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    line-height: 0.99;
+    color: black;
+    text-align: center;
+    width: 100%;
+    padding: 60px 80px;
+    position: relative;
+    flex: 0 0 auto;
+}
+
+.ellipse {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100vw;
+    height: 100vw;
+    background: radial-gradient(ellipse 35vw 20vw, white 0%, white 30%, transparent 60%);
+    z-index: -1;
+    pointer-events: none;
+}
+
+.enter {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    padding: 30px 20px 40px 20px;
+}
+
+.enter h3 {
+    color: white;
+    font-size: 15px;
+}
+.enter-sub {
+    color: rgb(126, 126, 126, 0.8);
+}
+
+/* site description blurb modal */
+.about-wrapper {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.about-glow {
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    background: radial-gradient(ellipse 50% 50%, black 0%, black 20%, transparent 60%);
+    pointer-events: none;
+}
+
+#about-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    position: relative;
+    z-index: 1;
+}
+#about-panel {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 350px;
+    height: 100vh;
+    background-color: black;
+    color: white;
+    padding: 60px 30px;
+    z-index: 9998;
+    overflow-y: auto;
+}
+
+/* ================================
+   TRANSITION LYRIC CARD
+================================ */
+.transition {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    z-index: 9999;
+    cursor: pointer;
+    gap: 15px;
+}
+.transition-sub {
+    color: rgb(126, 126, 126, 0.8);
+}
+
+/* ================================
+   SONG PAGE CONTENT
+================================ */
+.external-links {
+    z-index: 10;
+}
+
+.content {
+    display: none;
+}
+
+.songinfo {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.songinfo img {
+    width: 80px;
+    height: 80px;
+    border-radius: 5px;
+    object-fit: cover;
+    margin-bottom: 5px;
+}
+
+.songinfo p {
+    margin: 0;
+    text-align: center;
+    font-size: 11px;
+}
+
+.video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    z-index: -1;
+}
+
+.vignette {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(ellipse at center, transparent 70%, rgba(0,0,0,0.5) 100%);
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* ================================
+   STICKY TOP HOME BUTTON
+================================ */
+.home {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    line-height: 0.99;
+    z-index: 1;
+}
+.home h1 {
+    color: white;
+    margin: 0;
+    font-size: 15px;
+}
+.home h2 {
+    color: white;
+    margin: 0;
+    font-size: 13px;
+}
+
+.sticky-ellipse {
+    position: fixed;
+    top: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 60px;
+    background: radial-gradient(ellipse 50% 50%, black 0%, black 50%, transparent 100%);
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* ================================
+   LYRIC FRAGMENTS
+================================ */
+.external-links {
+    display: flex;
+    justify-content: space-evenly;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+}
+
+.external-links a {
+    text-decoration: none;
+    animation: float 3s ease-in-out infinite;
+    font-size: 20px;
+    margin-top: 100px;
+    margin-bottom: 100px;
+    text-align: center;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+}
+
+.volume-wrapper {
+    position: fixed;
+    top: 70px;
+    right: 20px;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.volume-glow {
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    background: radial-gradient(ellipse 50% 50%, black 0%, black 20%, transparent 60%);
+    pointer-events: none;
+}
+
+#volume-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    position: relative;
+    z-index: 1;
+}
+
+/* path history "chat history" box */
+#history-box {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 200px;
+    max-height: 200px;
+    background: rgba(0,0,0,0.7);
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 10px;
+    z-index: 9998;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.history-title {
+    color: rgba(126,126,126,0.8);
+    font-size: 11px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 5px;
+}
+
+#history-list p {
+    color: white;
+    font-size: 11px;
+    margin-bottom: 4px;
+    line-height: 1.4;
+}
+
+.history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 5px;
+    margin-bottom: 8px;
+}
+
+.reset-btn {
+    background: none;
+    border: none;
+    color: rgba(126, 126, 126, 0.8);
+    font-family: 'Xanh Mono', monospace;
+    font-size: 11px;
+    cursor: pointer;
+    padding: 0;
+}
+
+.reset-btn:hover {
+    color: white;
+}
+/* ================================
+   MOBILE
+================================ */
+@media screen and (max-width: 768px) {
+    h1 { font-size: clamp(20px, 8vw, 45px); }
+    h2 { font-size: clamp(18px, 7vw, 43px); }
+    h3 { font-size: clamp(12px, 3.5vw, 20px); }
+
+    .opening {
+        padding: 40px 20px;
+    }
+
+    .ellipse {
+        background: radial-gradient(ellipse 70vw 35vw, white 0%, white 30%, transparent 60%);
+    }
+
+    .enter {
+        padding: 20px 20px 30px 20px;
+    }
+
+    .songinfo img {
+        width: 80px;
+        height: 80px;
+    }
+
+    .external-links {
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+    }
+}
