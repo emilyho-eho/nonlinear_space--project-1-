@@ -40,7 +40,7 @@
 
 <!-- The1975 content (hidden initially) -->
 <div class="content">
-    <video class="video" autoplay loop muted>
+    <video class="video" autoplay loop muted playsinline>
         <source src="the1975/1975(visual).mp4" type="video/mp4">
     </video>
     <div class="vignette"></div>
@@ -55,9 +55,16 @@
     </div>
 
     <div class="external-links">
-        <a href="jpegmafia/jpegmafia(1).html" onclick="saveHistory('I heard you found somebody else')" style="color: black;"><h3 style="text-shadow: 0 0 10px white, 0 0 25px white, 0 0 50px white, 0 0 100px white;">> "I heard,</h3><h3 style="text-shadow: 0 0 10px white, 0 0 25px white, 0 0 50px white, 0 0 100px white;">you found</h3><h3 style="text-shadow: 0 0 10px white, 0 0 25px white, 0 0 50px white, 0 0 100px white;">somebody else"</h3></a>
-        <a href="gerryrafferty/gerry(1).html" onclick="saveHistory('I hate to think about you')" style="color: black;"><h3 style="text-shadow: 0 0 10px white, 0 0 25px white, 0 0 50px white, 0 0 100px white;">> "I hate to</h3><h3 style="text-shadow: 0 0 10px white, 0 0 25px white, 0 0 50px white, 0 0 100px white;">think about you"</h3></a>
-    </div>
+    <a href="jpegmafia/jpegmafia(1).html" onclick="saveHistory('I heard you found somebody else')" style="color: black;">
+        <span style="background: radial-gradient(ellipse 50% 50%, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.6) 50%, transparent 100%); padding: 15px 25px; display: inline-block; text-align: center;">
+            <h3>> "I heard,</h3><h3>you found</h3><h3>somebody else"</h3>
+        </span>
+    </a>
+    <a href="gerryrafferty/gerry(1).html" onclick="saveHistory('I hate to think about you')" style="color: black;">
+        <span style="background: radial-gradient(ellipse 50% 50%, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.6) 50%, transparent 100%); padding: 15px 25px; display: inline-block; text-align: center;">
+            <h3>> "I hate to</h3><h3>think about you"</h3>
+        </span>
+    </a>
 </div>
 
 <div id="history-box">
