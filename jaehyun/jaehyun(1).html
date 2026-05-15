@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fragmented Interlude</title>
     <link rel="stylesheet" href="../style.css">
+    <script src="../songs.js"></script>
     <link rel="icon" type="image/png" href="../interlude-favicon.png">
     <meta property="og:title" content="Fragmented Interlude" />
     <meta property="og:description" content="Memory and music." />
@@ -13,13 +14,15 @@
     <meta name="twitter:card" content="summary_large_image" />
 </head>
 <body>
+
 <div class="transition" id="transition-overlay">
-    <h3>"I want to try again"</h3>
+    <h3 id="transition-lyric"></h3>
     <br><br><br>
+    <p id="transition-fragment-count" style="display:none; border: 0.5px solid rgba(255,255,255,0.5); padding: 6px 14px; font-size:11px;"></p>
     <p class="transition-sub">( TAP ANYWHERE TO CONTINUE )</p>
 </div>
 
-<div class="content" style="display: block;"> 
+<div class="content" style="display: block;">
     <video class="video" autoplay loop muted playsinline>
         <source src="jaehyun(visual).mp4" type="video/mp4">
     </video>
@@ -32,18 +35,32 @@
             <p style="color: white;">try again</p>
             <p style="color: white;">Jaehyun, d.ear</p>
         </div>
-        
+
         <div class="external-links">
-    <a href="../jpegmafia/jpegmafia(2).html" onclick="saveHistory('my answer is you')" style="color: white;">
-        <span style="background: radial-gradient(ellipse 50% 50%, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.6) 50%, transparent 100%); padding: 10px 15px; display: inline-block; text-align: center;">
-            <h3>"my answer is"</h3><h3>you</h3>
-            <br><p style="color: rgba(255, 255, 255, 0.7);">< NEXT. ></p>
-        </span>
-    </a>
-    <a href="../chainsmokers/chainsmokers(2).html" onclick="saveHistory('I want to try again')" style="color: white;">
-        <span style="background: radial-gradient(ellipse 50% 50%, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.6) 50%, transparent 100%); padding: 10px 15px; display: inline-block; text-align: center;">
-            <h3>"I want to try</h3><h3>again"</h3>
-            <br><p style="color: rgba(255, 255, 255, 0.7);">< PREV. ></p>
+            <a href="../jpegmafia/jpegmafia(2).html" onclick="saveHistory('my answer is you')" style="color: white;">
+                <span style="background: radial-gradient(ellipse 50% 50%, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.6) 50%, transparent 100%); padding: 10px 15px; display: inline-block; text-align: center;">
+                    <h3>"my answer is"</h3><h3>you"</h3>
+                    <br><p style="color: rgba(255, 255, 255, 0.7);">< NEXT. ></p>
+                </span>
+            </a>
+            <a href="../chainsmokers/chainsmokers(2).html" onclick="saveHistory('I want to try again')" style="color: white;">
+                <span style="background: radial-gradient(ellipse 50% 50%, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.6) 50%, transparent 100%); padding: 10px 15px; display: inline-block; text-align: center;">
+                    <h3>"I want to try</h3><h3>again"</h3>
+                    <br><p style="color: rgba(255, 255, 255, 0.7);">< PREV. ></p>
+                </span>
+            </a>
+        </div>
+
+        <div id="history-box">
+            <div id="fragment-count-section">
+                <span id="fragment-num" style="color:white; font-size:11px;"></span><span class="history-title"> memories collected</span>
+            </div>
+            <div class="history-header">
+                <p class="history-title">path taken</p>
+                <button onclick="resetHistory()" class="reset-btn">reset</button>
+            </div>
+            <div id="history-list"></div>
+        </div>
     </div>
 </div>
 
@@ -73,15 +90,45 @@
     <p>The lyrics function as navigational links, guiding viewers between related songs through shared words or themes and forming a non-linear web of interconnected music and memory.</p>
 </div>
 
-<div id="history-box">
-    <div class="history-header">
-        <p class="history-title">path taken</p>
-        <button onclick="resetHistory()" class="reset-btn">reset</button>
+<div id="easter-egg-popup" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:99999; align-items:center; justify-content:center; flex-direction:column;">
+    <div style="width:90%; max-width:500px; text-align:center;">
+        <p style="color:white; font-size:15px; margin-bottom:30px;">all memories collected.</p>
+        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/65Ilj42FhmilWBhwYtrFhQ?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        <br><br>
+        <p onclick="document.getElementById('easter-egg-popup').style.display='none'" style="color:rgba(255,255,255,0.4); font-size:13px; cursor:pointer; margin-top:20px;">( TAP TO CLOSE )</p>
     </div>
-    <div id="history-list"></div>
 </div>
 
 <script>
+    const pageLyric = "I want to try again";
+
+    function showTransition() {
+    document.getElementById('transition-lyric').textContent = '"' + pageLyric + '"';
+    const collected = JSON.parse(localStorage.getItem('collectedFragments') || '[]');
+    const pageSong = getPageSong();
+    const isNew = pageSong && !collected.includes(pageSong);
+    if (isNew) {
+        collected.push(pageSong);
+        localStorage.setItem('collectedFragments', JSON.stringify(collected));
+        const countEl = document.getElementById('transition-fragment-count');
+        countEl.innerHTML = '<span style="color:white;">' + collected.length + '/5</span> <span style="color:white;">memories collected</span>';
+        countEl.style.display = 'block';
+    }
+    updateTracker();
+}
+
+function updateTracker() {
+    const collected = JSON.parse(localStorage.getItem('collectedFragments') || '[]');
+    const numEl = document.getElementById('fragment-num');
+    if (numEl) numEl.textContent = collected.length + '/5';
+    if (collected.length >= ALL_FRAGMENTS.length) {
+        setTimeout(() => {
+            const popup = document.getElementById('easter-egg-popup');
+            if (popup) popup.style.display = 'flex';
+        }, 800);
+    }
+}
+
     document.getElementById('transition-overlay').addEventListener('click', function() {
         this.style.transition = "opacity 1s ease";
         this.style.opacity = "0";
@@ -124,12 +171,31 @@
         });
     }
 
-    loadHistory();
+    function updateTracker() {
+        const collected = JSON.parse(localStorage.getItem('collectedFragments') || '[]');
+        const numEl = document.getElementById('fragment-num');
+        if (numEl) numEl.textContent = collected.length + '/10';
+        if (collected.length >= ALL_FRAGMENTS.length) {
+            setTimeout(() => {
+                const popup = document.getElementById('easter-egg-popup');
+                if (popup) popup.style.display = 'flex';
+            }, 800);
+        }
+    }
+
     function resetHistory() {
-    localStorage.removeItem('lyricHistory');
+        localStorage.removeItem('lyricHistory');
+        localStorage.removeItem('collectedFragments');
+        loadHistory();
+        updateTracker();
+    }
+
+    showTransition();
     loadHistory();
-}
 </script>
-<style>@keyframes fadein { 0% { opacity: 0; } 100% { opacity: 1; } }</style>
+
+<style>
+@keyframes fadein { 0% { opacity: 0; } 100% { opacity: 1; } }
+</style>
 </body>
 </html>

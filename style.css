@@ -327,9 +327,6 @@ h3 {
 .history-title {
     color: rgba(126,126,126,0.8);
     font-size: 11px;
-    margin-bottom: 8px;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    padding-bottom: 5px;
 }
 
 #history-list p {
@@ -343,9 +340,7 @@ h3 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    padding-bottom: 5px;
-    margin-bottom: 8px;
+    padding-bottom: 8px;
 }
 
 .reset-btn {
@@ -391,4 +386,14 @@ h3 {
         align-items: center;
         gap: 30px;
     }
+}
+
+#fragment-count-section {
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    padding-bottom: 6px;
+    margin-bottom: 8px;
+}
+
+#fragment-num {
+    font-size: 11px;
 }

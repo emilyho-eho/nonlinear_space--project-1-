@@ -5,23 +5,17 @@
     <title>Fragmented Interlude</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="interlude-favicon.png">
-
-    <!-- Open Graph -->
     <meta property="og:title" content="Fragmented Interlude" />
     <meta property="og:description" content="Memory and music." />
     <meta property="og:image" content="interlude-favicon.png" />
     <meta property="og:url" content="https://emilyho-eho.github.io/nonlinear_space--project-1-/" />
-    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
 </head>
 
 <body>
 
-<!-- Opening section -->
 <div class="intro-wrapper">
-
     <div class="spacer"></div>
-
     <div class="opening">
         <div class="ellipse"></div>
         <h1>FRAGMENTED</h1>
@@ -29,16 +23,13 @@
         <br>
         <h3>memory and music</h3>
     </div>
-
     <div class="enter">
         <h3>( TAP ANYWHERE TO ENTER )</h3>
         <br>
         <p class="enter-sub">for best experience, turn on your volume</p>
     </div>
-
 </div>
 
-<!-- The1975 content (hidden initially) -->
 <div class="content">
     <video class="video" autoplay loop muted playsinline>
         <source src="the1975/1975(visual).mp4" type="video/mp4">
@@ -55,24 +46,28 @@
     </div>
 
     <div class="external-links">
-    <a href="jpegmafia/jpegmafia(1).html" onclick="saveHistory('you found somebody else')" style="color: black;">
-        <span style="background: radial-gradient(ellipse 50% 50%, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.6) 50%, transparent 100%); padding: 15px 25px; display: inline-block; text-align: center;">
-            <h3>"you found</h3><h3>somebody else"</h3>
-        </span>
-    </a>
-    <a href="gerryrafferty/gerry(1).html" onclick="saveHistory('I hate to think about you')" style="color: black;">
-        <span style="background: radial-gradient(ellipse 50% 50%, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.6) 50%, transparent 100%); padding: 15px 25px; display: inline-block; text-align: center;">
-            <h3>"I hate to</h3><h3>think about you"</h3>
-        </span>
-    </a>
-</div>
-
-<div id="history-box">
-    <div class="history-header">
-        <p class="history-title">path taken</p>
-        <button onclick="resetHistory()" class="reset-btn">reset</button>
+        <a href="jpegmafia/jpegmafia(1).html" onclick="saveHistory('you found somebody else')" style="color: black;">
+            <span style="background: radial-gradient(ellipse 50% 50%, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.6) 50%, transparent 100%); padding: 15px 25px; display: inline-block; text-align: center;">
+                <h3>"you found</h3><h3>somebody else"</h3>
+            </span>
+        </a>
+        <a href="gerryrafferty/gerry(1).html" onclick="saveHistory('I hate to think about you')" style="color: black;">
+            <span style="background: radial-gradient(ellipse 50% 50%, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.6) 50%, transparent 100%); padding: 15px 25px; display: inline-block; text-align: center;">
+                <h3>"I hate to</h3><h3>think about you"</h3>
+            </span>
+        </a>
     </div>
-    <div id="history-list"></div>
+
+    <div id="history-box">
+        <div id="fragment-count-section">
+            <span id="fragment-num" style="color:white; font-size:11px;"></span><span class="history-title"> memories collected</span>
+        </div>
+        <div class="history-header">
+            <p class="history-title">path taken</p>
+            <button onclick="resetHistory()" class="reset-btn">reset</button>
+        </div>
+        <div id="history-list"></div>
+    </div>
 </div>
 
 <audio id="somebody else" loop preload="auto">
@@ -86,7 +81,6 @@
     </button>
 </div>
 
-<!-- About button -->
 <div class="about-wrapper">
     <div class="about-glow"></div>
     <button id="about-btn" onclick="toggleAbout()">
@@ -94,29 +88,40 @@
     </button>
 </div>
 
-<!-- About panel -->
 <div id="about-panel">
     <h1>About</h1>
     <br>
     <p>"Fragmented Interlude" explores the relationship between music and memory through a series of songs paired with distorted video imagery and lyric fragments.</p>
-    <br>  
+    <br>
     <p>The visuals are sourced from personal videos but are intentionally abstracted, inviting viewers to project their own memories onto them.</p>
 </div>
 
+<div id="easter-egg-popup" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:99999; align-items:center; justify-content:center; flex-direction:column;">
+    <div style="width:90%; max-width:500px; text-align:center;">
+        <p style="color:white; font-size:15px; margin-bottom:30px;">all memories collected.</p>
+        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/65Ilj42FhmilWBhwYtrFhQ?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        <br><br>
+        <p onclick="document.getElementById('easter-egg-popup').style.display='none'" style="color:rgba(255,255,255,0.4); font-size:13px; cursor:pointer; margin-top:20px;">( TAP TO CLOSE )</p>
+    </div>
+</div>
+
 <script>
+    const ALL_FRAGMENTS = ['the1975', 'jpegmafia', 'jaehyun', 'gerryrafferty', 'chainsmokers'];
+    
     function enterSite(e) {
         if (e.target.closest('#volume-btn') || e.target.closest('#about-btn')) return;
 
         document.querySelector('.opening').style.display = 'none';
         document.querySelector('.enter').style.display = 'none';
         document.querySelector('.spacer').style.display = 'none';
-        
+
         const content = document.querySelector('.content');
         content.style.display = 'block';
         content.style.animation = 'fadein 2s ease';
-        
+
         document.getElementById('somebody else').play();
         loadHistory();
+        updateTracker();
 
         document.removeEventListener('click', enterSite);
     }
@@ -156,10 +161,25 @@
             list.appendChild(p);
         });
     }
+
+    function updateTracker() {
+        const collected = JSON.parse(localStorage.getItem('collectedFragments') || '[]');
+        const numEl = document.getElementById('fragment-num');
+        if (numEl) numEl.textContent = collected.length + '/5';
+        if (collected.length >= ALL_FRAGMENTS.length) {
+            setTimeout(() => {
+                const popup = document.getElementById('easter-egg-popup');
+                if (popup) popup.style.display = 'flex';
+            }, 800);
+        }
+    }
+
     function resetHistory() {
-    localStorage.removeItem('lyricHistory');
-    loadHistory();
-}
+        localStorage.removeItem('lyricHistory');
+        localStorage.removeItem('collectedFragments');
+        loadHistory();
+        updateTracker();
+    }
 </script>
 
 <style>
