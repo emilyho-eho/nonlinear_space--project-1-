@@ -171,18 +171,6 @@ function updateTracker() {
         });
     }
 
-    function updateTracker() {
-        const collected = JSON.parse(localStorage.getItem('collectedFragments') || '[]');
-        const numEl = document.getElementById('fragment-num');
-        if (numEl) numEl.textContent = collected.length + '/10';
-        if (collected.length >= ALL_FRAGMENTS.length) {
-            setTimeout(() => {
-                const popup = document.getElementById('easter-egg-popup');
-                if (popup) popup.style.display = 'flex';
-            }, 800);
-        }
-    }
-
     function resetHistory() {
         localStorage.removeItem('lyricHistory');
         localStorage.removeItem('collectedFragments');

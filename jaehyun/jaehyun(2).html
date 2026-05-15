@@ -71,7 +71,7 @@
 <div class="volume-wrapper">
     <div class="volume-glow"></div>
     <button id="volume-btn" onclick="toggleVolume()">
-        <img id="volume-icon" src="../whitevolume(on).png" tick30px">
+        <img id="volume-icon" src="../whitevolume(on).png" width="30px">
     </button>
 </div>
 
@@ -90,7 +90,7 @@
     <p>The lyrics function as navigational links, guiding viewers between related songs through shared words or themes and forming a non-linear web of interconnected music and memory.</p>
 </div>
 
-<div id="easter-egg-popup" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:99999; align-items:center; justify-content:center; flex-direction:column;">
+<div id="easter-egg-popup" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.95); z-index:100000; align-items:center; justify-content:center; flex-direction:column;">
     <div style="width:90%; max-width:500px; text-align:center;">
         <p style="color:white; font-size:15px; margin-bottom:30px;">all memories collected.</p>
         <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/65Ilj42FhmilWBhwYtrFhQ?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
@@ -103,31 +103,31 @@
     const pageLyric = "my answer is you";
 
     function showTransition() {
-    document.getElementById('transition-lyric').textContent = '"' + pageLyric + '"';
-    const collected = JSON.parse(localStorage.getItem('collectedFragments') || '[]');
-    const pageSong = getPageSong();
-    const isNew = pageSong && !collected.includes(pageSong);
-    if (isNew) {
-        collected.push(pageSong);
-        localStorage.setItem('collectedFragments', JSON.stringify(collected));
-        const countEl = document.getElementById('transition-fragment-count');
-        countEl.innerHTML = '<span style="color:white;">' + collected.length + '/5</span> <span style="color:white;">memories collected</span>';
-        countEl.style.display = 'block';
+        document.getElementById('transition-lyric').textContent = '"' + pageLyric + '"';
+        const collected = JSON.parse(localStorage.getItem('collectedFragments') || '[]');
+        const pageSong = getPageSong();
+        const isNew = pageSong && !collected.includes(pageSong);
+        if (isNew) {
+            collected.push(pageSong);
+            localStorage.setItem('collectedFragments', JSON.stringify(collected));
+            const countEl = document.getElementById('transition-fragment-count');
+            countEl.innerHTML = '<span style="color:white;">' + collected.length + '/5</span> <span style="color:white;">memories collected</span>';
+            countEl.style.display = 'block';
+        }
+        updateTracker();
     }
-    updateTracker();
-}
 
-function updateTracker() {
-    const collected = JSON.parse(localStorage.getItem('collectedFragments') || '[]');
-    const numEl = document.getElementById('fragment-num');
-    if (numEl) numEl.textContent = collected.length + '/5';
-    if (collected.length >= ALL_FRAGMENTS.length) {
-        setTimeout(() => {
-            const popup = document.getElementById('easter-egg-popup');
-            if (popup) popup.style.display = 'flex';
-        }, 800);
+    function updateTracker() {
+        const collected = JSON.parse(localStorage.getItem('collectedFragments') || '[]');
+        const numEl = document.getElementById('fragment-num');
+        if (numEl) numEl.textContent = collected.length + '/5';
+        if (collected.length >= ALL_FRAGMENTS.length) {
+            setTimeout(() => {
+                const popup = document.getElementById('easter-egg-popup');
+                if (popup) popup.style.display = 'flex';
+            }, 800);
+        }
     }
-}
 
     document.getElementById('transition-overlay').addEventListener('click', function() {
         this.style.transition = "opacity 1s ease";
@@ -169,18 +169,6 @@ function updateTracker() {
             p.textContent = '> ' + item;
             list.appendChild(p);
         });
-    }
-
-    function updateTracker() {
-        const collected = JSON.parse(localStorage.getItem('collectedFragments') || '[]');
-        const numEl = document.getElementById('fragment-num');
-        if (numEl) numEl.textContent = collected.length + '/10';
-        if (collected.length >= ALL_FRAGMENTS.length) {
-            setTimeout(() => {
-                const popup = document.getElementById('easter-egg-popup');
-                if (popup) popup.style.display = 'flex';
-            }, 800);
-        }
     }
 
     function resetHistory() {
